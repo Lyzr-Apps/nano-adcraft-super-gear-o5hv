@@ -4,9 +4,7 @@
   "accessor": "json",
   "has_module_outputs": false,
   "schema": {
-    "refined_headline": "string",
     "hook": "string",
-    "body_copy": "string",
     "cta_text": "string",
     "visual_concept": "string",
     "layout_composition": "string",

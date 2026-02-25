@@ -21,9 +21,7 @@ interface CampaignInput {
 }
 
 interface AdConcept {
-  refined_headline: string
   hook: string
-  body_copy: string
   cta_text: string
   visual_concept: string
   layout_composition: string
@@ -62,18 +60,16 @@ const SAMPLE_INPUT: CampaignInput = {
 }
 
 const SAMPLE_CONCEPT: AdConcept = {
-  refined_headline: 'Stop Managing Workflows. Start Building the Future.',
-  hook: 'What if your most tedious workflows ran themselves?',
-  body_copy: 'Product managers spend 10+ hours every week on repetitive tasks that add zero strategic value. Architect lets you build AI-powered automation agents in minutes -- no code required. Reclaim your time and redirect it toward innovation.',
-  cta_text: 'Try Architect Free',
+  hook: 'Your workflows should run themselves.',
+  cta_text: 'Try Free',
   visual_concept: 'A sleek, minimalist workspace dissolving into flowing circuit patterns, symbolizing the transition from manual to automated workflows.',
-  layout_composition: 'Center-dominant layout with the headline in the upper third, hero visual in the middle, and CTA anchored at the bottom with generous breathing room.',
+  layout_composition: 'Center-dominant layout with hook text in the upper third, hero visual filling the middle, CTA button anchored bottom-right. Minimal text overlay.',
   color_treatment: 'Deep navy base (#0A1628) with electric gold accents (#C9A84C) and soft white text. Gradient transitions from dark to warm gold at focal points.',
-  typography_style: 'Modern serif for headlines (Playfair Display 700), clean sans-serif for body (Inter 400). High contrast between headline weight and body lightness.',
+  typography_style: 'Modern serif for hook text (Playfair Display 700), clean sans-serif for CTA (Inter 500). Maximum visual impact with minimal text.',
   imagery_direction: 'Abstract tech-organic hybrid -- geometric patterns with subtle organic curves. No stock photo people. Focus on the concept of transformation and efficiency.',
   platform_dimensions: '1080x1080px (Square)',
-  platform_notes: 'LinkedIn feed optimal. Keep key messaging in the center 80% safe zone. Ensure text contrast meets accessibility standards for mobile viewing.',
-  design_notes: 'Maintain premium, enterprise-grade aesthetic. Avoid visual clutter. The gold accent color should be used sparingly for maximum impact on the CTA and key accent elements.',
+  platform_notes: 'LinkedIn feed optimal. Hook centered in top third, CTA button bottom-right. Keep 80% of the image visual-only.',
+  design_notes: 'Ultra-minimal text. The image carries the message. Only hook + CTA visible on the creative. Premium, enterprise-grade aesthetic.',
 }
 
 const SAMPLE_HISTORY: CampaignHistoryItem[] = [
@@ -88,14 +84,14 @@ const SAMPLE_HISTORY: CampaignHistoryItem[] = [
     id: '2',
     timestamp: '2025-02-23T09:15:00Z',
     input: { ...SAMPLE_INPUT, platform: 'meta', adFormat: 'landscape', persona: 'Marketing Directors at Enterprise Companies' },
-    concept: { ...SAMPLE_CONCEPT, refined_headline: 'Your Marketing Team Deserves Better Tools', platform_dimensions: '1200x628px (Landscape)' },
+    concept: { ...SAMPLE_CONCEPT, hook: 'Your marketing team deserves better tools.', platform_dimensions: '1200x628px (Landscape)' },
     images: [{ file_url: 'https://placehold.co/1200x628/0A1628/C9A84C?text=Ad+Creative', name: 'ad-creative-2.png', format_type: 'image/png' }],
   },
   {
     id: '3',
     timestamp: '2025-02-22T16:45:00Z',
     input: { ...SAMPLE_INPUT, platform: 'instagram', adFormat: 'story', persona: 'Startup Founders' },
-    concept: { ...SAMPLE_CONCEPT, refined_headline: 'Launch Faster. Automate Smarter.', platform_dimensions: '1080x1920px (Story)' },
+    concept: { ...SAMPLE_CONCEPT, hook: 'Launch faster. Automate smarter.', platform_dimensions: '1080x1920px (Story)' },
     images: [],
   },
 ]
@@ -429,7 +425,7 @@ function CampaignHistoryScreen({
     if (search.trim()) {
       const q = search.toLowerCase()
       result = result.filter(h =>
-        (h.concept?.refined_headline || '').toLowerCase().includes(q) ||
+        (h.concept?.hook || '').toLowerCase().includes(q) ||
         (h.input?.persona || '').toLowerCase().includes(q) ||
         (h.input?.messaging || '').toLowerCase().includes(q)
       )
@@ -464,22 +460,18 @@ function CampaignHistoryScreen({
               <span className="text-xs bg-primary/10 text-primary px-2 py-1 tracking-wider font-light">{getPlatformLabel(expandedItem.input?.platform || '')}</span>
               <span className="text-xs text-muted-foreground tracking-wider font-light">{formatDate(expandedItem.timestamp)}</span>
             </div>
-            <h2 className="font-serif font-normal text-2xl tracking-wider text-foreground">{expandedItem.concept?.refined_headline || 'Untitled'}</h2>
+            <h2 className="font-serif font-normal text-2xl tracking-wider text-foreground italic">{expandedItem.concept?.hook || 'Untitled'}</h2>
           </div>
 
-          {/* Full Concept Display */}
+          {/* Copy Elements */}
           <div className="space-y-4">
-            <div>
+            <div className="border-l-2 border-primary pl-4">
               <label className="block text-xs tracking-wider text-muted-foreground mb-1 font-light uppercase">Hook</label>
-              <p className="text-sm font-light tracking-wider leading-relaxed italic">{expandedItem.concept?.hook || ''}</p>
+              <p className="text-lg font-light tracking-wider leading-relaxed italic text-foreground">{expandedItem.concept?.hook || ''}</p>
             </div>
             <div>
-              <label className="block text-xs tracking-wider text-muted-foreground mb-1 font-light uppercase">Body Copy</label>
-              <div className="text-sm font-light tracking-wider leading-loose">{renderMarkdown(expandedItem.concept?.body_copy || '')}</div>
-            </div>
-            <div>
-              <label className="block text-xs tracking-wider text-muted-foreground mb-1 font-light uppercase">CTA Text</label>
-              <span className="inline-block bg-primary/10 border border-primary/30 px-3 py-1.5 text-primary text-sm tracking-wider font-light">{expandedItem.concept?.cta_text || ''}</span>
+              <label className="block text-xs tracking-wider text-muted-foreground mb-1 font-light uppercase">CTA</label>
+              <span className="inline-block bg-primary/10 border border-primary/30 px-4 py-2 text-primary text-sm tracking-wider font-normal">{expandedItem.concept?.cta_text || ''}</span>
             </div>
           </div>
 
@@ -635,7 +627,7 @@ function CampaignHistoryScreen({
                 </div>
               )}
               <div className="p-4 space-y-2">
-                <h4 className="font-serif font-normal text-sm tracking-wider text-foreground truncate">{item.concept?.refined_headline || 'Untitled Campaign'}</h4>
+                <h4 className="font-serif font-normal text-sm tracking-wider text-foreground truncate italic">{item.concept?.hook || 'Untitled Campaign'}</h4>
                 <p className="text-xs text-muted-foreground font-light tracking-wider truncate">{item.input?.persona || ''}</p>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 tracking-wider font-light">{getPlatformLabel(item.input?.platform || '')}</span>
@@ -855,7 +847,7 @@ function CampaignBuilderScreenWithReuse({
       setConcept(SAMPLE_CONCEPT)
       setGeneratedImages([{ file_url: 'https://placehold.co/1080x1080/0A1628/C9A84C?text=Ad+Creative+Preview', name: 'sample-ad.png', format_type: 'image/png' }])
     } else if (!initialInput) {
-      setInput({ persona: '', problem: '', messaging: '', cta: '', platform: 'linkedin', adFormat: 'square' })
+      setInput({ persona: '', problem: '', messaging: '', cta: '', platform: 'linkedin', adFormat: 'square' } as CampaignInput)
       setConcept(null)
       setGeneratedImages([])
     }
@@ -906,9 +898,7 @@ Ad Format: ${getFormatName(input.adFormat)} (${getFormatLabel(input.adFormat)})`
         const parsed = parseLLMJson(result.response?.result)
         if (parsed && typeof parsed === 'object' && !parsed.error) {
           const newConcept: AdConcept = {
-            refined_headline: parsed?.refined_headline ?? '',
             hook: parsed?.hook ?? '',
-            body_copy: parsed?.body_copy ?? '',
             cta_text: parsed?.cta_text ?? '',
             visual_concept: parsed?.visual_concept ?? '',
             layout_composition: parsed?.layout_composition ?? '',
@@ -941,17 +931,20 @@ Ad Format: ${getFormatName(input.adFormat)} (${getFormatLabel(input.adFormat)})`
     setActiveAgentId(IMAGE_GENERATOR_AGENT_ID)
 
     const prompt = `Create an ad creative image with these specifications:
-Headline: ${concept.refined_headline}
-Hook: ${concept.hook}
-Body Copy: ${concept.body_copy}
-CTA: ${concept.cta_text}
+IMPORTANT: This ad has ONLY two text elements. No headline, no body copy, no subtitle. Just these two:
+Hook Text (the single line on the ad): ${concept.hook}
+CTA Button Text: ${concept.cta_text}
+
 Visual Concept: ${concept.visual_concept}
 Layout: ${concept.layout_composition}
 Color Treatment: ${concept.color_treatment}
 Typography: ${concept.typography_style}
 Imagery Direction: ${concept.imagery_direction}
 Platform Dimensions: ${concept.platform_dimensions}
-Design Notes: ${concept.design_notes}`
+Text Placement Notes: ${concept.platform_notes}
+Design Notes: ${concept.design_notes}
+
+CRITICAL: Only render these two text elements on the image: the hook line and the CTA. The rest of the image should be purely visual. Modern, minimal, visual-first ad creative.`
 
     try {
       const result: AIAgentResponse = await callAIAgent(prompt, IMAGE_GENERATOR_AGENT_ID)
@@ -1129,46 +1122,32 @@ Design Notes: ${concept.design_notes}`
             <ConceptSkeleton stage={LOADING_STAGES[stageIndex]} />
           ) : concept ? (
             <div className="space-y-6">
-              {/* Headline */}
-              <div>
-                <label className="block text-xs tracking-wider text-muted-foreground mb-2 font-light uppercase">Refined Headline</label>
-                <EditableField
-                  value={concept.refined_headline}
-                  onChange={(v) => updateConceptField('refined_headline', v)}
-                  className="font-serif text-2xl font-normal tracking-wider leading-relaxed text-foreground"
-                />
-              </div>
-
-              {/* Hook */}
-              <div className="border-l-2 border-primary pl-4">
-                <label className="block text-xs tracking-wider text-muted-foreground mb-2 font-light uppercase">Hook</label>
-                <EditableField
-                  value={concept.hook}
-                  onChange={(v) => updateConceptField('hook', v)}
-                  className="text-lg font-light tracking-wider leading-relaxed text-foreground italic"
-                />
-              </div>
-
-              {/* Body Copy */}
-              <div>
-                <label className="block text-xs tracking-wider text-muted-foreground mb-2 font-light uppercase">Body Copy</label>
-                <EditableField
-                  value={concept.body_copy}
-                  onChange={(v) => updateConceptField('body_copy', v)}
-                  multiline
-                  className="text-sm font-light tracking-wider leading-loose text-foreground"
-                />
-              </div>
-
-              {/* CTA Text */}
-              <div>
-                <label className="block text-xs tracking-wider text-muted-foreground mb-2 font-light uppercase">CTA Text</label>
-                <div className="inline-block bg-primary/10 border border-primary/30 px-4 py-2">
+              {/* Ad Copy - Hook + CTA Only */}
+              <div className="border border-border bg-card p-6 space-y-5">
+                <h3 className="font-serif font-normal text-lg tracking-wider text-muted-foreground flex items-center gap-2">
+                  <FiZap className="w-4 h-4 text-primary" />
+                  Ad Copy
+                </h3>
+                {/* Hook */}
+                <div className="border-l-2 border-primary pl-4">
+                  <label className="block text-xs tracking-wider text-muted-foreground mb-2 font-light uppercase">Hook</label>
                   <EditableField
-                    value={concept.cta_text}
-                    onChange={(v) => updateConceptField('cta_text', v)}
-                    className="text-primary font-normal tracking-wider"
+                    value={concept.hook}
+                    onChange={(v) => updateConceptField('hook', v)}
+                    className="font-serif text-2xl font-normal tracking-wider leading-relaxed text-foreground italic"
                   />
+                </div>
+
+                {/* CTA Text */}
+                <div>
+                  <label className="block text-xs tracking-wider text-muted-foreground mb-2 font-light uppercase">CTA</label>
+                  <div className="inline-block bg-primary text-primary-foreground px-6 py-2.5">
+                    <EditableField
+                      value={concept.cta_text}
+                      onChange={(v) => updateConceptField('cta_text', v)}
+                      className="font-normal tracking-wider text-sm"
+                    />
+                  </div>
                 </div>
               </div>
 
