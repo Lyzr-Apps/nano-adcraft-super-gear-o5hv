@@ -1,0 +1,44 @@
+{
+  "agent_name": "Ad Campaign Orchestrator",
+  "agent_id": "699e8fde5cb02bdebdbe2b51",
+  "description": "Coordinates the copy polishing and creative direction sub-agents, aggregates their outputs into a cohesive ad concept brief for review",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "refined_headline": "string",
+    "hook": "string",
+    "body_copy": "string",
+    "cta_text": "string",
+    "visual_concept": "string",
+    "layout_composition": "string",
+    "color_treatment": "string",
+    "typography_style": "string",
+    "imagery_direction": "string",
+    "platform_dimensions": "string",
+    "platform_notes": "string",
+    "design_notes": "string"
+  },
+  "example_response": {
+    "refined_headline": "sample string",
+    "hook": "sample string",
+    "body_copy": "sample string",
+    "cta_text": "sample string",
+    "visual_concept": "sample string",
+    "layout_composition": "sample string",
+    "color_treatment": "sample string",
+    "typography_style": "sample string",
+    "imagery_direction": "sample string",
+    "platform_dimensions": "sample string",
+    "platform_notes": "sample string",
+    "design_notes": "sample string"
+  },
+  "has_module_outputs": true,
+  "module_outputs_example": {
+    "artifact_files": [
+      {
+        "file_url": "https://example.com/image.png"
+      }
+    ]
+  }
+}

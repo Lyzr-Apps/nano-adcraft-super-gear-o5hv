@@ -1,0 +1,20 @@
+{
+  "agent_name": "Ad Campaign Orchestrator",
+  "agent_type": "manager",
+  "accessor": "json",
+  "has_module_outputs": false,
+  "schema": {
+    "refined_headline": "string",
+    "hook": "string",
+    "body_copy": "string",
+    "cta_text": "string",
+    "visual_concept": "string",
+    "layout_composition": "string",
+    "color_treatment": "string",
+    "typography_style": "string",
+    "imagery_direction": "string",
+    "platform_dimensions": "string",
+    "platform_notes": "string",
+    "design_notes": "string"
+  }
+}

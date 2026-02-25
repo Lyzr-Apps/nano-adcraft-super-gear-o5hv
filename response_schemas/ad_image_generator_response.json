@@ -1,0 +1,24 @@
+{
+  "agent_name": "Ad Image Generator",
+  "agent_id": "699e8fdea70fc86b203052d3",
+  "description": "Generates the final ad creative image based on the approved concept brief including polished copy, visual direction, platform dimensions, and brand styling",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "image_description": "string",
+    "generation_status": "string"
+  },
+  "example_response": {
+    "image_description": "sample string",
+    "generation_status": "sample string"
+  },
+  "has_module_outputs": true,
+  "module_outputs_example": {
+    "artifact_files": [
+      {
+        "file_url": "https://example.com/image.png"
+      }
+    ]
+  }
+}

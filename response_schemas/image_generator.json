@@ -1,0 +1,10 @@
+{
+  "agent_name": "Ad Image Generator",
+  "agent_type": "independent",
+  "accessor": "json",
+  "has_module_outputs": true,
+  "schema": {
+    "image_description": "string",
+    "generation_status": "string"
+  }
+}
